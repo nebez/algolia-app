@@ -1,0 +1,19 @@
+{
+    "name": "nebez/algolia-example",
+    "description": "Algolia Example",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nebez Briefkani",
+            "email": "me@nebezb.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Mvc\\": "src/"
+        }
+    },
+    "require": {}
+}
