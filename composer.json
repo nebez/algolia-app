@@ -15,5 +15,8 @@
             "Mvc\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "symfony/http-foundation": "^3.2",
+        "php-di/php-di": "^5.4"
+    }
 }
