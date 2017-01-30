@@ -3,7 +3,11 @@
 namespace App\Contracts;
 
 interface ItemIndexer {
-    public function addItemToIndex($index, $item);
+    public function add(array $items);
 
-    public function removeItemFromIndex($index, $item);
+    public function delete($id);
+
+    public function clear();
+
+    public function search($term);
 }
