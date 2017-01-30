@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Application {
 
+    private $router;
+
     private $container;
 
     public function __construct(Router $router)
