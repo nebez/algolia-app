@@ -12,9 +12,14 @@ class TestController {
         $this->app = $app;
     }
 
-    public function test(Request $request, $id)
+    public function test(Request $request)
     {
-        return 'TEST CONTROLLER RESPONSE FOR ID: ' . $id;
+        return $this->app->json('Test');
+    }
+
+    public function testId(Request $request, $id)
+    {
+        return $this->app->json(['id' => $id]);
     }
 
 }

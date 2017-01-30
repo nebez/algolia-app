@@ -10,6 +10,7 @@ use Mvc\Exceptions\ClientHttpException;
 use Mvc\Exceptions\ServerHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Application {
 
@@ -33,6 +34,11 @@ class Application {
     public function post($path, $handler)
     {
         $this->router->add('POST', $path, $handler);
+    }
+
+    public function json($data, $status = 200)
+    {
+        return new JsonResponse($data, $status);
     }
 
     public function createRequestFromGlobals()
