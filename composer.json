@@ -17,6 +17,7 @@
     },
     "require": {
         "symfony/http-foundation": "^3.2",
-        "php-di/php-di": "^5.4"
+        "php-di/php-di": "^5.4",
+        "php-di/invoker": "^1.3"
     }
 }
