@@ -38,6 +38,16 @@ class Application {
         $this->router->add('POST', $path, $handler);
     }
 
+    public function put($path, $handler)
+    {
+        $this->router->add('PUT', $path, $handler);
+    }
+
+    public function delete($path, $handler)
+    {
+        $this->router->add('DELETE', $path, $handler);
+    }
+
     public function json($data, $status = 200)
     {
         return new JsonResponse($data, $status);
