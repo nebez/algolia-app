@@ -68,4 +68,20 @@ class RouteTest extends TestCase {
         $this->assertEquals($route->getNamedParameterValues(), ['greeting' => 'hello', 'place' => 'world']);
     }
 
+    public function testThatNamedParametersDontMatchInvalidCharacters()
+    {
+        $route = new Route('/hello/:place', 'NullHandler');
+
+        $this->assertFalse($route->isMatch('/hello/test!@#$%^&*()'));
+    }
+
+    public function testThatNamedParametersDontNeedSlashes()
+    {
+        $route = new Route('/user-:id', 'NullHandler');
+
+        $this->assertTrue($route->isMatch('/user-1234'));
+        $this->assertTrue($route->isMatch('/user-nebez'));
+        $this->assertTrue($route->isMatch('/user-jo-shmoe'));
+    }
+
 }
