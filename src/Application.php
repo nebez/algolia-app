@@ -30,6 +30,11 @@ class Application {
         $this->container = $container;
     }
 
+    public function bind($abstract)
+    {
+        return new Binding($this->container, $abstract);
+    }
+
     public function get($path, $handler)
     {
         $this->router->add('GET', $path, $handler);

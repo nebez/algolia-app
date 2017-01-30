@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class InfoController {
 
+    private $app;
+
     public function __construct(Application $app)
     {
         $this->app = $app;

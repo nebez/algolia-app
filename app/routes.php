@@ -1,5 +1,7 @@
 <?php
 
 $app->get('/api/1/info', 'App\Controllers\InfoController@info');
-$app->get('/api/1/apps', 'App\Controllers\TestController@test');
-$app->get('/api/1/apps/:id', 'App\Controllers\TestController@testId');
+
+$app->post('/api/1/apps', 'App\Controllers\IndexController@create');
+$app->get('/api/1/apps/:id', 'App\Controllers\IndexController@display');
+$app->delete('/api/1/apps/:id', 'App\Controllers\TestController@delete');

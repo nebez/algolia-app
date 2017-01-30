@@ -10,6 +10,8 @@ $app->setContainer($container);
 
 require_once __DIR__ . '/env.php';
 
+require_once __DIR__ . '/bindings.php';
+
 require_once __DIR__ . '/routes.php';
 
 return $app;
