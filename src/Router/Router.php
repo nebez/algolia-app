@@ -23,7 +23,9 @@ class Router {
 
         foreach ($this->routes[$method] as $route) {
             if ($route->isMatch($path)) {
-                return $route->getNamedParameterValues($path);
+                $route->setMatchedPath($path);
+
+                return $route;
             }
         }
 

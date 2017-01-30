@@ -10,14 +10,17 @@ class Route {
 
     private $pathRegex;
 
-    private $pathParameters = [];
+    private $parameterNames;
+
+    private $parameterValues;
 
     public function __construct($path, $handler)
     {
         $this->path = $path;
         $this->handler = $handler;
-        $this->pathRegex = $this->converPathToRegex($path);
-        $this->pathParameters = $this->getParameterNames($path);
+        $this->pathRegex = $this->initializePathAsRegex($path);
+        $this->parameterNames = $this->initializeNamedParameters($path);
+        $this->parameterValues = [];
     }
 
     /**
@@ -27,7 +30,7 @@ class Route {
      * @param  string $path
      * @return string
      */
-    private function converPathToRegex($path)
+    private function initializePathAsRegex($path)
     {
         $regex = preg_replace('/:[a-z-_]+/', '([a-zA-Z0-9-_]+)', $path);
         $regex = '/^' . str_replace('/', '\\/', $regex) . '$/';
@@ -35,7 +38,7 @@ class Route {
         return $regex;
     }
 
-    private function getParameterNames($path)
+    private function initializeNamedParameters($path)
     {
         preg_match_all('/:[a-z-_]+/', $path, $params);
 
@@ -56,18 +59,23 @@ class Route {
         return false;
     }
 
-    public function getNamedParameterValues($path)
+    public function setMatchedPath($path)
     {
-        $parameters = [];
-
-        if (sizeof($this->pathParameters) >= 1) {
+        if (sizeof($this->parameterNames) >= 1) {
             preg_match_all($this->pathRegex, $path, $match);
 
-            $parameters = array_combine($this->pathParameters, $match[1]);
+            $this->parameterValues = $match[1];
         }
+    }
 
+    public function getNamedParameterValues()
+    {
+        return array_combine($this->parameterNames, $this->parameterValues);
+    }
 
-        return ['handler' => $this->handler, 'parameters' => $parameters];
+    public function getHandler()
+    {
+        return $this->handler;
     }
 
 }

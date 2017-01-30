@@ -6,8 +6,10 @@ use Exception;
 use Invoker\Invoker;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 use Mvc\Router\Router;
+use Mvc\Exceptions\HttpException;
 use Mvc\Exceptions\ClientHttpException;
 use Mvc\Exceptions\ServerHttpException;
+use Mvc\Exceptions\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -68,18 +70,24 @@ class Application {
             $response = $this->dispatch($matchedRoute);
 
             return $response;
-        } catch (ServerHttpException $e) {
-            return new Response('Server error: ' . $e->getMessage(), $e->getHttpCode());
-        } catch (ClientHttpException $e) {
-            return new Response('Client error: ' . $e->getMessage(), $e->getHttpCode());
+        } catch (HttpException $e) {
+            return $this->json([
+                'error' => get_class($e),
+                'message' => $e->getMessage(),
+                'code' => $e->getHttpCode()
+            ]);
         } catch (Exception $e) {
-            return new Response('Unhandled exception: ' . $e->getMessage(), 500);
+            return $this->json([
+                'error' => get_class($e),
+                'message' => 'Unhandled exception: ' . $e->getMessage(),
+                'code' => 500
+            ]);
         }
     }
 
     private function dispatch($route)
     {
-        list($controller, $method) = split('@', $route['handler']);
+        list($controller, $method) = split('@', $route->getHandler());
 
         $controller = $this->container->get($controller);
 
@@ -97,7 +105,7 @@ class Application {
         // By adding an array to the invoker as a second argument, we can take
         // advantage of automatically injecting named parameters into the
         // controller method. /path/:id will inject $id into the method.
-        $response = $invoker->call([$controller, $method], $route['parameters']);
+        $response = $invoker->call([$controller, $method], $route->getNamedParameterValues());
 
         if (!$response instanceof Response) {
             if (method_exists($response, '__toString')) {
