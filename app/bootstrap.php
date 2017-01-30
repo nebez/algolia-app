@@ -8,7 +8,6 @@ $app = $container->get('Mvc\\Application');
 
 $app->setContainer($container);
 
-$app->get('/api/1/apps', 'App\Controllers\TestController@test');
-$app->get('/api/1/apps/:id', 'App\Controllers\TestController@testId');
+require_once __DIR__ . '/routes.php';
 
 return $app;
