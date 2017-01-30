@@ -64,7 +64,9 @@ class Route {
         if (sizeof($this->parameterNames) >= 1) {
             preg_match_all($this->pathRegex, $path, $match);
 
-            $this->parameterValues = $match[1];
+            $this->parameterValues = array_map(function ($match) {
+                return $match[0];
+            }, array_slice($match, 1));
         }
     }
 
