@@ -131,13 +131,13 @@ class Application {
                 'error' => get_class($e),
                 'message' => $e->getMessage(),
                 'code' => $e->getHttpCode()
-            ]);
+            ], $e->getHttpCode());
         }
 
         return $this->json([
             'error' => get_class($e),
             'message' => 'Unhandled exception: ' . $e->getMessage(),
             'code' => 500
-        ]);
+        ], 500);
     }
 }
