@@ -65,7 +65,10 @@ class RouteTest extends TestCase {
 
         $route->setMatchedPath('/hello/world');
 
-        $this->assertEquals($route->getNamedParameterValues(), ['greeting' => 'hello', 'place' => 'world']);
+        $this->assertEquals($route->getNamedParameterValues(), [
+            'greeting' => 'hello',
+            'place' => 'world'
+        ]);
     }
 
     public function testThatNamedParametersDontMatchInvalidCharacters()

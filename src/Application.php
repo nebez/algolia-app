@@ -87,18 +87,8 @@ class Application {
             $response = $this->dispatch($matchedRoute);
 
             return $response;
-        } catch (HttpException $e) {
-            return $this->json([
-                'error' => get_class($e),
-                'message' => $e->getMessage(),
-                'code' => $e->getHttpCode()
-            ]);
         } catch (Exception $e) {
-            return $this->json([
-                'error' => get_class($e),
-                'message' => 'Unhandled exception: ' . $e->getMessage(),
-                'code' => 500
-            ]);
+            return $this->exceptionHandler($e);
         }
     }
 
@@ -135,5 +125,24 @@ class Application {
         }
 
         return $response;
+    }
+
+    private function exceptionHandler($e)
+    {
+        // @hack: this serves no purpose other than to minimize the lines of
+        // code in the handle() method
+        if ($e instanceof HttpException) {
+            return $this->json([
+                'error' => get_class($e),
+                'message' => $e->getMessage(),
+                'code' => $e->getHttpCode()
+            ]);
+        }
+
+        return $this->json([
+            'error' => get_class($e),
+            'message' => 'Unhandled exception: ' . $e->getMessage(),
+            'code' => 500
+        ]);
     }
 }
