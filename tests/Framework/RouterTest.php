@@ -56,4 +56,15 @@ class RouterTest extends TestCase {
         $this->assertEquals($wildMatch->getHandler(), 'WildcardAppHandler');
     }
 
+    public function testThatMatchingUnknownMethodsDoesntThrow()
+    {
+        $router = new Router();
+
+        $router->add('GET', '/', 'NullHandler');
+
+        $match = $router->match('POST', '/');
+
+        $this->assertNull($match);
+    }
+
 }
