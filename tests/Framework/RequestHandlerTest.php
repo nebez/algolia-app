@@ -105,6 +105,39 @@ class RequestHandlerTest extends TestCase {
         $this->assertEquals($response->getStatusCode(), 500);
         $this->assertContains('Unhandled exception:', $response->getContent());
     }
+
+    public function testThatTheRequestIsInjectedIntoTheController()
+    {
+        $this->app->get('/search', 'TestController@request');
+
+        $mockRequest = Request::create('/search', 'GET', ['search-term' => 'hello', 'page' => 1]);
+
+        $response = $this->app->handle($mockRequest);
+
+        $this->assertEquals($response->getStatusCode(), 200);
+        $this->assertEquals($response->getContent(), json_encode([
+            'path' => '/search',
+            'query' => [
+                'search-term' => 'hello',
+                'page' => 1
+            ]
+        ]));
+    }
+
+    public function testThatNamedRouteParametersAreInjectedIntoTheController()
+    {
+        $this->app->get('/params/:id/:slug', 'TestController@params');
+
+        $mockRequest = Request::create('/params/99/test-slug', 'GET');
+
+        $response = $this->app->handle($mockRequest);
+
+        $this->assertEquals($response->getStatusCode(), 200);
+        $this->assertEquals($response->getContent(), json_encode([
+            'id' => '99',
+            'slug' => 'test-slug'
+        ]));
+    }
 }
 
 class TestController {
@@ -131,6 +164,16 @@ class TestController {
     public function boom()
     {
         throw new Exception('whoa');
+    }
+
+    public function params($id, $slug)
+    {
+        return json_encode(['id' => $id, 'slug' => $slug]);
+    }
+
+    public function request(Request $request)
+    {
+        return json_encode(['path' => $request->getPathInfo(), 'query' => $request->query->all()]);
     }
 }
 
