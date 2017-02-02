@@ -15,6 +15,11 @@
             "Mvc\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "symfony/http-foundation": "^3.2",
         "php-di/php-di": "^5.4",
