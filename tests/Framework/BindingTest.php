@@ -15,15 +15,15 @@ class BindingTest extends TestCase {
     public function testThatInterfacesDontResolve()
     {
         $this->expectException('DI\Definition\Exception\DefinitionException');
-        $this->container->get('FakeObjectInterface');
+        $this->container->get(FakeObjectInterface::class);
     }
 
     public function testThatInterfacesResolveWhenBoundToClasses()
     {
-        $bind = new Binding($this->container, 'FakeObjectInterface');
-        $bind->to('FakeObject');
+        $bind = new Binding($this->container, FakeObjectInterface::class);
+        $bind->to(FakeObject::class);
 
-        $concrete = $this->container->get('FakeObjectInterface');
+        $concrete = $this->container->get(FakeObjectInterface::class);
         $this->assertTrue($concrete instanceof FakeObject);
     }
 
