@@ -5,6 +5,8 @@ namespace Mvc;
 use Exception;
 use Invoker\Invoker;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
+use Interop\Container\ContainerInterface;
+use Mvc\Router\Route;
 use Mvc\Router\Router;
 use Mvc\Exceptions\HttpException;
 use Mvc\Exceptions\ClientHttpException;
@@ -25,7 +27,7 @@ class Application {
         $this->router = $router;
     }
 
-    public function setContainer($container)
+    public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -92,7 +94,7 @@ class Application {
         }
     }
 
-    private function dispatch($route)
+    private function dispatch(Route $route)
     {
         list($controller, $method) = split('@', $route->getHandler());
 
@@ -102,17 +104,10 @@ class Application {
             throw new ServerHttpException(500, 'Controller method does not exist');
         }
 
-        // Create a method invoker so our controllers can resolve dependencies
-        // out of the container through type-hints. This makes it a breeze to
-        // access the Application and Request in each controller method.
-        $resolver = new TypeHintContainerResolver($this->container);
-        $invoker = new Invoker;
-        $invoker->getParameterResolver()->prependResolver($resolver);
-
         // By adding an array to the invoker as a second argument, we can take
         // advantage of automatically injecting named parameters into the
         // controller method. /path/:id will inject $id into the method.
-        $response = $invoker->call([$controller, $method], $route->getNamedParameterValues());
+        $response = $this->container->call([$controller, $method], $route->getNamedParameterValues());
 
         if (!$response instanceof Response) {
             if (method_exists($response, '__toString')) {
@@ -127,7 +122,7 @@ class Application {
         return $response;
     }
 
-    private function exceptionHandler($e)
+    private function exceptionHandler(Exception $e)
     {
         // @hack: this serves no purpose other than to minimize the lines of
         // code in the handle() method

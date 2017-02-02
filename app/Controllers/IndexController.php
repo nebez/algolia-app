@@ -54,5 +54,4 @@ class IndexController {
 
         return $this->app->json(['action' => 'delete', 'id' => $id]);
     }
-
 }
