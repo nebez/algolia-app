@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RequestHandlerTest extends TestCase {
+class RequestResponseHandlerTest extends TestCase {
 
     protected $app;
 
