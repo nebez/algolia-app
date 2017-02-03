@@ -96,7 +96,7 @@ class Application {
 
     private function dispatch(Route $route)
     {
-        list($controller, $method) = split('@', $route->getHandler());
+        list($controller, $method) = explode('@', $route->getHandler());
 
         $controller = $this->container->get($controller);
 

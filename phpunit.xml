@@ -29,6 +29,7 @@
         </whitelist>
     </filter>
     <php>
+        <env name="APP_ENV" value="testing"/>
         <env name="ALGOLIA_APP_ID" value="fake_app_id"/>
         <env name="ALGOLIA_API_KEY" value="fake_api_key"/>
     </php>

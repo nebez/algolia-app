@@ -6,11 +6,12 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
- * Our env.php file takes care of ensuring the .env file is loaded, required
- * variables are set, and exposing a handy env() function for easily accessing
- * the variables.
+ * Our env.php file takes care of ensuring the .env file is loaded and that
+ * required variables are set. Ensure not to load it in test mode!
  */
-require_once __DIR__ . '/env.php';
+if (env('APP_ENV') !== 'testing') {
+    require_once __DIR__ . '/env.php';
+}
 
 /**
  * We'll resolve the application out of our DI container so that it can take
