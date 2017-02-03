@@ -1,0 +1,53 @@
+body, input, label, select, button, textarea {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #383838;
+}
+
+.container {
+    width: 90%;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.search .search-box {
+    font-size: 60px;
+    font-weight: 700;
+
+    display: block;
+    width: 100%;
+    padding: 15px 0px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-top: 300px;
+
+    transition: border-color 300ms ease,
+        font-size 700ms ease,
+        padding 700ms ease,
+        margin-top 700ms ease;
+}
+
+.search.smaller .search-box {
+    font-size: 30px;
+    padding: 7px 0;
+    margin-top: 30px;
+}
+
+.search .search-box:invalid {
+    border-color: #e0e0e0;
+}
+
+.search .search-box:valid {
+    border-color: #383838;
+}
+
+.search label {
+    margin: 15px 0;
+    font-size: 11px;
+    opacity: 1;
+
+    transition: opacity 700ms ease;
+}
+
+.search.smaller label {
+    opacity: 0;
+}
