@@ -21,6 +21,13 @@ class ApplicationTest extends TestCase {
         $this->app->setContainer($this->container);
     }
 
+    public function testThatMissingEnvironmentVariablesReturnDefaults()
+    {
+        $env = env('MISSING_ENV_VARIABLE_BLAH', '123456');
+
+        $this->assertEquals($env, '123456');
+    }
+
     public function testThatResponsesAreValid()
     {
         $response = $this->app->json(['response' => 'okay', 'hello' => 'world']);

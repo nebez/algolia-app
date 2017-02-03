@@ -1,6 +1,6 @@
 # Algolia example application
 
-[![Build Status](https://travis-ci.org/nebez/algolia-app.svg?branch=master)](https://travis-ci.org/nebez/algolia-app)
+[![Build Status](https://travis-ci.org/nebez/algolia-app.svg?branch=master)](https://travis-ci.org/nebez/algolia-app) [![Coverage Status](https://coveralls.io/repos/github/nebez/algolia-app/badge.svg)](https://coveralls.io/github/nebez/algolia-app)
 
 ### Running the server
 
