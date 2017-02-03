@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/nebez/algolia-app.svg?branch=master)](https://travis-ci.org/nebez/algolia-app) [![Coverage Status](https://coveralls.io/repos/github/nebez/algolia-app/badge.svg)](https://coveralls.io/github/nebez/algolia-app)
 
+[Front-end preview](http://nebezb.com/algolia-app/)
+
 ### Installation
 
 1. Clone the repository
