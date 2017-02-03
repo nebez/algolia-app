@@ -4,24 +4,28 @@
     <meta charset="utf-8">
     <title>App Search</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <link href="./assets/reset.css" rel="stylesheet">
-    <link href="./assets/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.css">
+    <link rel="stylesheet" href="./assets/reset.css">
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
     <main class="container">
         <section class="search">
-            <input id="algolia-search" type="text" class="search-box" placeholder="Search" required="">
+            <input id="algolia-search" type="text" class="search-box" placeholder="Search" required="true">
             <label for="algolia-search">Let's find an app...</label>
         </section>
-        <nav class="facets">
 
-        </nav>
-        <section class="results">
+        <div class="content">
+            <nav class="facets" id="facets-container"></nav>
 
-        </section>
+            <section class="results" id="hits-container"></section>
+        </div>
     </main>
+
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.0/seedrandom.min.js"></script>
     <script src="./assets/app.js"></script>
 </body>
 </html>
