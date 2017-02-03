@@ -29,6 +29,15 @@ class ResponseAssertions extends PHPUnit_Framework_Assert {
     public function seeJson($json)
     {
         $this->assertEquals($this->response->getContent(), json_encode($json));
+
+        return $this;
+    }
+
+    public function containsString($needle)
+    {
+        $this->assertContains($needle, $this->response->getContent());
+
+        return $this;
     }
 
 }

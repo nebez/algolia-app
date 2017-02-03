@@ -21,4 +21,22 @@ abstract class ApplicationTestCase extends TestCase {
 
         return new ResponseAssertions($response);
     }
+
+    protected function post($path, $data = array())
+    {
+        $request = Request::create($path, 'POST', $data);
+
+        $response = $this->app->handle($request);
+
+        return new ResponseAssertions($response);
+    }
+
+    protected function delete($path)
+    {
+        $request = Request::create($path, 'DELETE');
+
+        $response = $this->app->handle($request);
+
+        return new ResponseAssertions($response);
+    }
 }
